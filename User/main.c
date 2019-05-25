@@ -22,6 +22,7 @@
 #include "./APP/usbh_bsp.h"
 #include "bsp_basic_tim.h"
 #include "flash_if.h"
+#include "pbdata.h"
 #include <string.h>
 
 FRESULT result;
@@ -31,6 +32,15 @@ FIL file;
 u8 Jumpflag=0;
 //递归扫描文件时使用的路径
 char scan_path[255] = "0:";
+const uint8_t ALERT[][21+5]=
+{
+	{"请插入U盘"},
+	{"正在升级中请不要关闭电源"},
+	{"升级结束后自动关机"},
+	{"关机后请拔掉电源重启"},
+
+
+};
 
 UINT fnum;            					  /* 文件成功读写数量 */
 BYTE ReadBuffer[1024]={0};        /* 读缓冲区 */
@@ -343,12 +353,14 @@ void JumpBoot(u8 flag)
   */
 int main(void)
 {
+	const u8 (*pt)[sizeof(ALERT[0])];
+	
 	static u16 usbcount;
 	NVIC_SetVectorTable(NVIC_VectTab_FLASH, 0xC0000);
 	__enable_irq();
 	/* LED 端口初始化 */
 	LED_GPIO_Config();	 
-  
+	g_LcdDirection=1;
 //  /*初始化液晶屏*/
 //  LCD_Init();
 //  LCD_LayerInit();
@@ -394,10 +406,17 @@ int main(void)
 
   while(1)
 	{
+		pt = ALERT;
+		Colour.black=LCD_COLOR_TEST_BACK;
+		Colour.Fword=Red;
+		WriteString_16(50,50,pt[0],0);
 		USBH_Process(&USB_OTG_Core, &USB_Host);
 		result = f_mount(&fs,"0:",1);
-		if(result == FR_OK && usbcount > 200)
+		if(result == FR_OK && usbcount > 20)
 		{
+			WriteString_16(50,70,pt[1],0);
+			WriteString_16(50,90,pt[2],0);
+			WriteString_16(50,110,pt[3],0);
 			File_IAP();			
 		}
 		usbcount++;

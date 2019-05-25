@@ -67,4 +67,5 @@
 ..\..\output\main.o: ..\..\HARDWARE\tim\bsp_basic_tim.h
 ..\..\output\main.o: ..\..\User\flash_if.h
 ..\..\output\main.o: ..\..\User\flash_if.h
+..\..\output\main.o: ..\..\User\pbdata.h
 ..\..\output\main.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
