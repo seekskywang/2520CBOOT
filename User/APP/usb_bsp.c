@@ -161,8 +161,8 @@ void USB_OTG_BSP_DriveVBUS(USB_OTG_CORE_HANDLE *pdev, uint8_t state)
 
 void  USB_OTG_BSP_ConfigVBUS(USB_OTG_CORE_HANDLE *pdev)
 {
-    GPIO_ResetBits(GPIOI,GPIO_Pin_6);
-
+//    GPIO_ResetBits(GPIOI,GPIO_Pin_6);
+	GPIO_SetBits(GPIOB,GPIO_Pin_13);
 }
 
 /**
@@ -177,7 +177,7 @@ static void USB_OTG_BSP_TimeInit ( void )
   NVIC_InitTypeDef NVIC_InitStructure;
   
   /* Set the Vector Table base address at 0x08000000 */
-  NVIC_SetVectorTable(NVIC_VectTab_FLASH, 0xC0000);
+  NVIC_SetVectorTable(NVIC_VectTab_FLASH, 0x00000);
   
   /* Configure the Priority Group to 2 bits */
   NVIC_PriorityGroupConfig(NVIC_PriorityGroup_0);

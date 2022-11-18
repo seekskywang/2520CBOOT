@@ -361,7 +361,7 @@
 /*!< Uncomment the following line if you need to relocate your vector Table in
      Internal SRAM. */
 /* #define VECT_TAB_SRAM */
-#define VECT_TAB_OFFSET  0xC0000 /*!< Vector Table base offset field. 
+#define VECT_TAB_OFFSET  0x00000 /*!< Vector Table base offset field. 
                                    This value must be a multiple of 0x200. */
 /******************************************************************************/
 
@@ -390,7 +390,7 @@
 #endif /* STM32F446xx */ 
 
 #if defined(STM32F40_41xxx) || defined(STM32F427_437xx) || defined(STM32F429_439xx) || defined(STM32F446xx)
-#define PLL_N      360
+#define PLL_N      336
 /* SYSCLK = PLL_VCO / PLL_P */
 #define PLL_P      2
 #endif /* STM32F40_41xxx || STM32F427_437x || STM32F429_439xx || STM32F446xx */
@@ -430,7 +430,7 @@
 #endif /* STM32F40_41xxx */
 
 #if defined(STM32F427_437xx) || defined(STM32F429_439xx) || defined(STM32F446xx)
-  uint32_t SystemCoreClock = 180000000;
+  uint32_t SystemCoreClock = 168000000;
 #endif /* STM32F427_437x || STM32F429_439xx || STM32F446xx */
 
 #if defined(STM32F401xx)
